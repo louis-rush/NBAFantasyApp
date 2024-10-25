@@ -43,14 +43,12 @@ jobs:
           sudo rm -f /usr/bin/google-chrome
           sudo ln -s /usr/bin/google-chrome-beta /usr/bin/google-chrome
 
-      # Install the correct ChromeDriver version for Chrome 131.x
+      # Install ChromeDriver 131.x (manually specify version)
       - name: Install ChromeDriver for Chrome 131.x
         run: |
           sudo apt-get install -y wget unzip
-          # Fetch the correct ChromeDriver version for Chrome 131.x
-          CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_131)
-          echo "Installing ChromeDriver version $CHROME_DRIVER_VERSION"
-          wget -N https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
+          # Manually specify the ChromeDriver version for Chrome 131.x
+          wget -N https://chromedriver.storage.googleapis.com/131.0.6778.13/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
