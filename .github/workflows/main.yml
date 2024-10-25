@@ -24,10 +24,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests selenium beautifulsoup4
 
-      # Set up Chrome and ChromeDriver using SeleniumHQ action
-      - name: Set up Chrome and ChromeDriver
-        uses: SeleniumHQ/setup-selenium@v1
+      # Install Google Chrome
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
+      # Install ChromeDriver
+      - name: Install ChromeDriver
+        run: |
+          sudo apt-get install -y wget unzip
+          wget -N https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv -f chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+
+      # Run the Python script
       - name: Run the Python script
         run: |
           python scraper.py
