@@ -24,18 +24,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests selenium beautifulsoup4
 
-      # Install Google Chrome
-      - name: Install Google Chrome
+      # Install Google Chrome Beta version
+      - name: Install Google Chrome Beta
         run: |
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y wget
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-beta
 
-      # Install ChromeDriver for Chrome 130.x
-      - name: Install ChromeDriver for Chrome 130.x
+      # Install ChromeDriver Beta matching the Chrome Beta version
+      - name: Install ChromeDriver Beta
         run: |
           sudo apt-get install -y wget unzip
-          # Manually specify ChromeDriver version for Chrome 130.x
-          wget -N https://chromedriver.storage.googleapis.com/130.0.6723.69/chromedriver_linux64.zip
+          CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget -N https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
