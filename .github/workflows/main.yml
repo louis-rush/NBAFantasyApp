@@ -43,20 +43,22 @@ jobs:
           sudo rm -f /usr/bin/google-chrome
           sudo ln -s /usr/bin/google-chrome-beta /usr/bin/google-chrome
 
-      # Install ChromeDriver for Chrome 131.x
+      # Install the correct ChromeDriver version for Chrome 131.x
       - name: Install ChromeDriver for Chrome 131.x
         run: |
           sudo apt-get install -y wget unzip
-          # Fetch ChromeDriver for Chrome 131.x
+          # Fetch the correct ChromeDriver version for Chrome 131.x
           CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_131)
+          echo "Installing ChromeDriver version $CHROME_DRIVER_VERSION"
           wget -N https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
-      # Verify ChromeDriver version to ensure compatibility
-      - name: Verify ChromeDriver Version
+      # Verify ChromeDriver and Chrome versions to ensure compatibility
+      - name: Verify Chrome and ChromeDriver versions
         run: |
+          google-chrome --version
           /usr/local/bin/chromedriver --version
 
       # Run the Python script
