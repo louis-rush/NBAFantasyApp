@@ -30,17 +30,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      # Install ChromeDriver version that matches Chrome 130.x
-      - name: Install ChromeDriver
+      # Install ChromeDriver matching Chrome 130.x
+      - name: Install ChromeDriver for Chrome 130.x
         run: |
           sudo apt-get install -y wget unzip
-          CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_130)
-          wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv -f chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
-
-      # Run the Python script
-      - name: Run the Python script
-        run: |
-          python scraper.py
+          CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_130.0.6723)
+          wget -N https://chromedriver.storage.
