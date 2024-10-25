@@ -13,7 +13,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 
 # Set up the ChromeDriver service with the path to ChromeDriver
 service = Service("/Users/louis.rushton/Downloads/chromedriver-mac-arm64/chromedriver")
-driver = webdriver.Chrome(service=service, options=chrome_options)
+driver = webdriver.Chrome(options=chrome_options)
 
 # Load the webpage
 driver.get("https://nbafantasy.nba.com/leagues/6768/standings/c")
