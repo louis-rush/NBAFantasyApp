@@ -40,19 +40,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-beta
 
-      # Install ChromeDriver 130.x (hardcoded stable version)
-      - name: Install ChromeDriver for Chrome 130.x
+      # Install ChromeDriver via apt (matches Chrome Beta version)
+      - name: Install ChromeDriver
         run: |
-          sudo apt-get install -y wget unzip
-          wget -N https://chromedriver.storage.googleapis.com/130.0.6723.69/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv -f chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+          sudo apt-get install -y chromium-chromedriver
 
       # Verify ChromeDriver version to ensure compatibility
       - name: Verify ChromeDriver Version
         run: |
-          /usr/local/bin/chromedriver --version
+          /usr/bin/chromedriver --version
 
       # Run the Python script
       - name: Run the Python script
