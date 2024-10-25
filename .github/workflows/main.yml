@@ -24,7 +24,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests selenium beautifulsoup4
 
-      # Install Google Chrome Beta version
+      # Remove any existing ChromeDriver
+      - name: Remove old ChromeDriver
+        run: |
+          sudo rm -f /usr/local/bin/chromedriver
+
+      # Install Google Chrome Beta
       - name: Install Google Chrome Beta
         run: |
           sudo apt-get update
@@ -34,8 +39,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-beta
 
-      # Install ChromeDriver Beta matching the Chrome Beta version
-      - name: Install ChromeDriver Beta
+      # Install ChromeDriver for Chrome Beta (v130.x)
+      - name: Install ChromeDriver for Chrome Beta
         run: |
           sudo apt-get install -y wget unzip
           CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
@@ -43,6 +48,11 @@ jobs:
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
+
+      # Verify ChromeDriver version to ensure compatibility
+      - name: Verify ChromeDriver Version
+        run: |
+          /usr/local/bin/chromedriver --version
 
       # Run the Python script
       - name: Run the Python script
