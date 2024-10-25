@@ -39,7 +39,8 @@ jobs:
           echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y google-chrome-beta
-          # Create a symbolic link to ensure Chrome is found at /usr/bin/google-chrome
+          # Ensure Chrome is found at /usr/bin/google-chrome by removing the old link if it exists
+          sudo rm -f /usr/bin/google-chrome
           sudo ln -s /usr/bin/google-chrome-beta /usr/bin/google-chrome
 
       # Install ChromeDriver via apt (matches Chrome Beta version)
