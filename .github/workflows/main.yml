@@ -1,7 +1,6 @@
-name: Run Script and Trigger Zapier
+name: Run Python Script with Selenium
 
 on:
-  # Trigger the action when there's a push or a manual workflow dispatch
   push:
     branches:
       - main
@@ -9,31 +8,25 @@ on:
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the repository code
+      - name: Install ChromeDriver
+        uses: browser-actions/setup-chromedriver@v1
+
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Python
-      - name: Set up Python 3.x
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-      # Step 3: Install dependencies
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests selenium  # Install Selenium here
 
-      # Step 4: Run the Python script
       - name: Run the Python script
         run: |
           python scraper.py
-
-      # Step 5: Trigger Zapier webhook (in case you want a separate call)
-      - name: Trigger Zapier webhook
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"status": "GitHub Action Completed"}' https://hooks.zapier.com/hooks/catch/20533683/291p5b4/
