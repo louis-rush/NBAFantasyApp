@@ -34,9 +34,8 @@ jobs:
       - name: Install ChromeDriver for Chrome 130.x
         run: |
           sudo apt-get install -y wget unzip
-          # Correct URL to fetch the latest ChromeDriver for Chrome version 130.x
-          CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_130.0.6723)
-          wget -N https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
+          # Manually specify ChromeDriver version for Chrome 130.x
+          wget -N https://chromedriver.storage.googleapis.com/130.0.6723.69/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv -f chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
